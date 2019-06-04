@@ -13,6 +13,7 @@ class Listing extends React.Component {
     page = 0;
     showedAll = false;
     loading = false;
+    query = this.props.query;
 
     loaded = data => {
         this.endLoading();
@@ -28,10 +29,17 @@ class Listing extends React.Component {
 
     more = () => {
         if (this.showedAll || this.loading) return;
+        if (this.props.type === 'SEARCH' && !this.props.query) return;
         this.startLoading();
         this.page++;
         API.request(this.props.type, this.props.query, this.page, this.loaded, this.fail);
     };
+
+    newSearch = () => {
+        this.setState({ list: [] });
+        this.page = 0;
+        this.more();
+    }
 
     startLoading = () => {
         this.loading = true;
@@ -44,9 +52,16 @@ class Listing extends React.Component {
     formatFilm = data => {
         return data.map((item, index) => {
             const backgroundImage = 'url(' + API.poster(item.poster_path, 200) + ')';
-            const title = item.poster_path?'':<p>{item.title}</p>
+            const title = item.poster_path ? '' : <p>{item.title}</p>
             return <div className="item" key={index} style={{ backgroundImage }}>{title}</div>
         });
+    }
+
+    componentDidUpdate() {
+        if (this.query !== this.props.query) {
+            this.query = this.props.query;
+            this.newSearch();
+        }
     }
 
     componentDidMount() {

@@ -12,7 +12,7 @@ const queryFamily = page => {
     return 'https://api.themoviedb.org/3/discover/movie?api_key=' + apiKey + '&page=' + page + '&with_genres=10751';
 }
 
-const queryDocumentary = page  => {
+const queryDocumentary = page => {
     return 'https://api.themoviedb.org/3/discover/movie?api_key=' + apiKey + '&page=' + page + '&with_genres=99';
 }
 
@@ -61,6 +61,7 @@ const request = (type, query, page, callbackOK, callbackError) => {
 }
 
 const poster = (url, size) => {
+    if (!url) return '';
     return 'https://image.tmdb.org/t/p/w' + size + url;
 }
 

@@ -1,18 +1,18 @@
 import React from 'react';
-import Slide from '../../Components/Listing';
+import Listing from '../../Components/Listing';
 
 const Home = props => {
     return (
         <div>
-        <h1>React Movies</h1>
-        <h2>Popular movies</h2>
-        <Slide type="LIST" query="POPULAR_MOVIES" slide />
-        <h2>Popular series</h2>
-        <Slide type="LIST" query="POPULAR_SERIES" slide />
-        <h2>Family</h2>
-        <Slide type="LIST" query="FAMILY" slide />
-        <h2>Documentary</h2>
-        <Slide type="LIST" query="DOCUMENTARY" slide />
+            <h1>React Movies</h1>
+            <h2>Popular movies</h2>
+            <Listing type="LIST" query="POPULAR_MOVIES" slide />
+            <h2>Popular series</h2>
+            <Listing type="LIST" query="POPULAR_SERIES" slide />
+            <h2>Family</h2>
+            <Listing type="LIST" query="FAMILY" slide />
+            <h2>Documentary</h2>
+            <Listing type="LIST" query="DOCUMENTARY" slide />
         </div>
     )
 }
