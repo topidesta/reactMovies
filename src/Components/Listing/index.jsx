@@ -30,16 +30,11 @@ class Listing extends React.Component {
 
     more = () => {
         if (this.showedAll || this.loading) return;
-        if (this.props.type === 'SEARCH' && !this.props.query) return;
+        if (this.props.type === 'SEARCH' && !this.props.query && this.state.list.length>0) return this.setState({ list: [] });
         this.startLoading();
         this.page++;
         API.request(this.props.type, this.props.query, this.page, this.loaded, this.fail);
     };
-
-    newSearch = () => {
-        this.page = 0;
-        this.more();
-    }
 
     startLoading = () => {
         this.loading = true;
@@ -60,7 +55,8 @@ class Listing extends React.Component {
     componentDidUpdate() {
         if (this.query !== this.props.query) {
             this.query = this.props.query;
-            this.newSearch();
+            this.page = 0;
+            this.more();
         }
     }
 
@@ -69,7 +65,9 @@ class Listing extends React.Component {
     }
 
     render() {
-        const listing = this.props.slide ? <SlideList list={this.state.list} query={this.props.query} more={this.more} /> : <BoxList list={this.state.list} more={this.more} />
+        const listing = this.props.slide
+            ? <SlideList list={this.state.list} query={this.props.query} more={this.more} />
+            : <BoxList list={this.state.list} more={this.more} />;
         return (
             <div>
                 {listing}
