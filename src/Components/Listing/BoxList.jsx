@@ -10,12 +10,17 @@ class SlideList extends React.Component {
         if (windowHeight + bodyScrollHeight > bodyHeight - Math.round(windowHeight / 2)) this.props.more();
     }
 
+    
+    componentDidUpdate(){
+        this.scrolled();
+    }
+
     componentDidMount(){
         window.addEventListener('scroll', this.scrolled);
     }
 
-    componentDidUpdate(){
-        this.scrolled();
+    componentWillUnmount(){
+        window.removeEventListener('scroll', this.scrolled);
     }
 
     render(){
