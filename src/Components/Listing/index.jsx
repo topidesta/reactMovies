@@ -1,7 +1,7 @@
 import React from 'react';
+import { withRouter } from "react-router-dom";
 import SlideList from './SlideList';
 import BoxList from './BoxList';
-import Error from '../Error';
 import API from '../API/request';
 import './Listing.css';
 
@@ -17,20 +17,23 @@ class Listing extends React.Component {
 
     loaded = data => {
         this.endLoading();
+        if (data.results.length === 0) return this.showedAll = true;
         let formatedData = this.formatFilm(data.results);
         if (this.page > 1) formatedData = [...this.state.list, formatedData];
         this.setState({ list: formatedData });
-        if (data.length === 0) this.showedAll = true;
     };
 
     fail = error => {
-        this.endLoading();
-        if (this.page === 0) this.setState({ message: <Error /> });
+        console.log(error)
+        this.props.history.push('/lost');
     };
 
     more = () => {
         if (this.showedAll || this.loading) return;
-        if (this.props.type === 'SEARCH' && !this.props.query && this.state.list.length>0) return this.setState({ list: [] });
+        if (this.props.type === 'SEARCH' && !this.props.query) {
+            if (this.state.list.length > 0) this.setState({ list: [] });
+            return;
+        };
         this.startLoading();
         this.page++;
         API.request(this.props.type, this.props.query, this.page, this.loaded, this.fail);
@@ -45,6 +48,7 @@ class Listing extends React.Component {
     }
 
     formatFilm = data => {
+        if (!data) return [];
         return data.map((item, index) => {
             const backgroundImage = 'url(' + API.poster(item.poster_path, 200) + ')';
             const title = item.poster_path ? '' : <p>{item.title}</p>
@@ -77,4 +81,4 @@ class Listing extends React.Component {
     }
 }
 
-export default Listing;
+export default withRouter(Listing);
