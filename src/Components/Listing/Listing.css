@@ -1,0 +1,32 @@
+.box{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.slider{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    overflow: hidden;
+	height: 310px;
+}
+
+.item {
+    position: relative;
+    width: 200px;
+    height: 300px;
+    background: grey;
+    margin: 5px;
+    flex: 1 0 200px;
+    background-size: cover;
+}
+
+.item p {
+    position: absolute;
+    bottom: 0;
+    margin: 0;
+    padding: 5px;
+    background-color: black;
+    color: white;
+}

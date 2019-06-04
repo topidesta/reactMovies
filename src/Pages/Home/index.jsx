@@ -1,9 +1,19 @@
 import React from 'react';
-import API from '../../Components/API/request';
+import Slide from '../../Components/Listing';
 
 const Home = props => {
     return (
-        <h1>Home</h1>
+        <div>
+        <h1>React Movies</h1>
+        <h2>Popular movies</h2>
+        <Slide type="LIST" query="POPULAR_MOVIES" slide />
+        <h2>Popular series</h2>
+        <Slide type="LIST" query="POPULAR_SERIES" slide />
+        <h2>Family</h2>
+        <Slide type="LIST" query="FAMILY" slide />
+        <h2>Documentary</h2>
+        <Slide type="LIST" query="DOCUMENTARY" slide />
+        </div>
     )
 }
 

@@ -1,9 +1,9 @@
 import React from 'react';
+import './Template.css';
 
 const Template = props => {
     return (
-        <div>
-            <h1>React Movies</h1>
+        <div className="content">
             {props.children}
         </div>
     )
