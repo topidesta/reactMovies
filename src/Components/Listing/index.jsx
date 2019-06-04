@@ -57,7 +57,7 @@ class Listing extends React.Component {
     }
 
     render() {
-        const listing = this.props.slide ? <SlideList list={this.state.list} more={this.more} /> : <BoxList list={this.state.list} more={this.more} />
+        const listing = this.props.slide ? <SlideList list={this.state.list} query={this.props.query} more={this.more} /> : <BoxList list={this.state.list} more={this.more} />
         return (
             <div>
                 {listing}

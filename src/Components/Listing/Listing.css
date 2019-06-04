@@ -20,6 +20,7 @@
     margin: 5px;
     flex: 1 0 200px;
     background-size: cover;
+    cursor: pointer;
 }
 
 .item p {
@@ -29,4 +30,28 @@
     padding: 5px;
     background-color: black;
     color: white;
+}
+
+.scroller {
+    display: flex;
+}
+
+.scroller .moving {
+    color:white;
+    align-items: center;
+    background-color: #932023;
+    margin: 5px 0;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.scroller .moving p{
+    text-align:center;
+    border: 2px white solid;
+    border-radius: 30px;
+    padding: 10px;
+    margin: 10px;
 }
