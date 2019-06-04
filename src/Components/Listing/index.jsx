@@ -17,8 +17,9 @@ class Listing extends React.Component {
 
     loaded = data => {
         this.endLoading();
-        const formatedData = this.formatFilm(data.results);
-        this.setState({ list: [...this.state.list, formatedData] });
+        let formatedData = this.formatFilm(data.results);
+        if (this.page > 1) formatedData = [...this.state.list, formatedData];
+        this.setState({ list: formatedData });
         if (data.length === 0) this.showedAll = true;
     };
 
@@ -36,7 +37,6 @@ class Listing extends React.Component {
     };
 
     newSearch = () => {
-        this.setState({ list: [] });
         this.page = 0;
         this.more();
     }
