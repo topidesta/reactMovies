@@ -4,12 +4,12 @@ const SlideList = props => {
 
     const moveRight = () => {
         const element = document.getElementById(props.query);
-        smooth(element, 420);
+        smooth(element, 210);
     }
 
     const moveLeft = () => {
         const element = document.getElementById(props.query);
-        smooth(element, -420);
+        smooth(element, -210);
     }
 
     const smooth = (element, pixels) => {

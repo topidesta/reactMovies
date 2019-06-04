@@ -1,7 +1,6 @@
 import React from 'react';
 import SlideList from './SlideList';
 import BoxList from './BoxList';
-import Loading from '../Loading';
 import Error from '../Error';
 import API from '../API/request';
 import './Listing.css';
@@ -36,12 +35,10 @@ class Listing extends React.Component {
 
     startLoading = () => {
         this.loading = true;
-        this.setState({ message: <Loading /> });
     }
 
     endLoading = () => {
         this.loading = false;
-        this.setState({ message: '' });
     }
 
     formatFilm = data => {
