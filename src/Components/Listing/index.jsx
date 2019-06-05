@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import SlideList from './SlideList';
 import BoxList from './BoxList';
 import API from '../API/request';
@@ -7,8 +7,7 @@ import './Listing.css';
 
 class Listing extends React.Component {
     state = {
-        list: [],
-        message: ''
+        list: []
     };
     page = 0;
     showedAll = false;
@@ -39,7 +38,7 @@ class Listing extends React.Component {
         return data.map((item, index) => {
             const backgroundImage = 'url(' + API.poster(item.poster_path, 200) + ')';
             const title = item.poster_path ? '' : <p>{item.title}</p>
-            return <div className="item" key={index} style={{ backgroundImage }}>{title}</div>
+            return <Link to={'/movie/'+item.id} key={index}><div className="item" style={{ backgroundImage }}>{title}</div></Link>
         });
     }
 
