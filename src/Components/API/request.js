@@ -17,14 +17,14 @@ const queryDocumentary = page => {
 }
 
 const querySearch = (query, page) => {
-    return 'https://api.themoviedb.org/3/search/movie?api_key=' + apiKey + '&page=' + page + '&query=' + escape(query);
+    return query?'https://api.themoviedb.org/3/search/movie?api_key=' + apiKey + '&page=' + page + '&query=' + escape(query):null;
 }
 
 const queryDetail = query => {
-    return 'https://api.themoviedb.org/3/movie/' + query + '?api_key=' + apiKey;
+    return query?'https://api.themoviedb.org/3/movie/' + query + '?api_key=' + apiKey:null;
 }
 
-const queries = (type, query, page) => {
+const queries = (type, query, page=1) => {
     switch (type) {
         case 'LIST':
             switch (query) {
@@ -37,18 +37,21 @@ const queries = (type, query, page) => {
                 case 'DOCUMENTARY':
                     return queryDocumentary(page);
                 default:
+                    return null;
             }
-            break;
         case 'SEARCH':
             return querySearch(query, page);
         case 'DETAIL':
             return queryDetail(query);
         default:
+            return null;
     }
 }
 
 const request = (type, query, page, callbackOK, callbackError) => {
-    fetch(queries(type, query, page))
+    const actualQuery=queries(type, query, page);
+    if (!actualQuery) return callbackOK([]);
+    fetch(actualQuery)
         .then(function (response) {
             return response.json();
         })

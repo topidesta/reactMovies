@@ -16,36 +16,23 @@ class Listing extends React.Component {
     query = this.props.query;
 
     loaded = data => {
-        this.endLoading();
-        if (data.results.length === 0) return this.showedAll = true;
-        let formatedData = this.formatFilm(data.results);
+        this.loading = false;
+        let formatedData = data.results ? this.formatFilm(data.results) : [];
+        if (formatedData.length === 0) this.showedAll = true;
         if (this.page > 1) formatedData = [...this.state.list, formatedData];
         this.setState({ list: formatedData });
     };
 
     fail = error => {
-        console.log(error)
         this.props.history.push('/lost');
     };
 
     more = () => {
         if (this.showedAll || this.loading) return;
-        if (this.props.type === 'SEARCH' && !this.props.query) {
-            if (this.state.list.length > 0) this.setState({ list: [] });
-            return;
-        };
-        this.startLoading();
+        this.loading = true;
         this.page++;
         API.request(this.props.type, this.props.query, this.page, this.loaded, this.fail);
     };
-
-    startLoading = () => {
-        this.loading = true;
-    }
-
-    endLoading = () => {
-        this.loading = false;
-    }
 
     formatFilm = data => {
         if (!data) return [];
@@ -60,6 +47,7 @@ class Listing extends React.Component {
         if (this.query !== this.props.query) {
             this.query = this.props.query;
             this.page = 0;
+            this.showedAll = false;
             this.more();
         }
     }
