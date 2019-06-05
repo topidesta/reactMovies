@@ -2,6 +2,10 @@ import React from 'react';
 import Button from '../../Components/Button';
 import './Error404.css';
 
+/**
+ * Shows a 404 error page
+ */
+
 const Error404 = () => {
     return (
         <div className="error404">

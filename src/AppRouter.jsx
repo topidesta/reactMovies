@@ -26,6 +26,7 @@ const AppRouter = () => {
 }
 
 const FineRoute = ({ component: Component, ...props }) => {
+    // It forces scroll to top on each page change.
     window.scrollTo({ top: 0, behavior: 'smooth' });
     return (
         <Route

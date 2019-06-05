@@ -2,6 +2,10 @@ import React from 'react';
 import Listing from '../../Components/Listing';
 import './Search.css';
 
+/**
+ * Search page. So simple because we only have an input and a Listing component.
+ */
+
 class Search extends React.Component {
 
     state = {

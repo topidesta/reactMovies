@@ -2,6 +2,10 @@ import React from 'react';
 import Button from '../../Components/Button';
 import './ConnError.css';
 
+/**
+ * Shows a no connection error
+ */
+
 const Error = props => {
     return (
         <div className="noconnection">

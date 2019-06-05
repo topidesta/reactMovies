@@ -4,6 +4,10 @@ import Button from '../../Components/Button';
 import Error404 from '../Error404';
 import './ViewMovie.css';
 
+/**
+ * Shows the info of a movie
+ */
+
 class ViewMovie extends React.Component {
     state = {
         title: '',
@@ -14,7 +18,8 @@ class ViewMovie extends React.Component {
     }
 
     loaded(data) {
-        if (!data.title) this.setState({ message: <Error404 /> });
+        // When data is received, if wrong shows message, else it update background and set state with received data
+        if (!data.title) return this.setState({ message: <Error404 /> });
         document.getElementsByTagName('body')[0].style.backgroundImage = 'url(' + API.poster(data.backdrop_path, 500) + ')';
         this.setState({
             title: data.title,
@@ -25,10 +30,12 @@ class ViewMovie extends React.Component {
     }
 
     componentDidMount() {
+        // Ask for data when component is ready
         API.request('DETAIL', this.props.match.params.id, 1, this.loaded.bind(this), this.loaded.bind(this));
     }
 
     componentWillUnmount() {
+        // Removes the background when we leaves
         document.getElementsByTagName('body')[0].style.backgroundImage = 'url()';
     }
 

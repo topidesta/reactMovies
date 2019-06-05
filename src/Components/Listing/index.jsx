@@ -5,6 +5,15 @@ import BoxList from './BoxList';
 import API from '../API/request';
 import './Listing.css';
 
+/**
+ * Renders a box list or slider list.
+ * 
+ * Params:
+ * @param {*} type 'LIST' / 'SEARCH' / 'DETAIL'
+ * @param {*} query search query for SEARCH, Film ID for DETAIL, or for LIST: 'POPULAR_MOVIES' / 'POPULAR_SERIES' / 'FAMILY' / 'DOCUMENTARY'
+ * @param slide (if its indicated, it shows a horizontal slider, if not, it renders a box). See use at page Home.
+ */
+
 class Listing extends React.Component {
     state = {
         list: []
@@ -15,6 +24,7 @@ class Listing extends React.Component {
     query = this.props.query;
 
     loaded = data => {
+        // When data is received.
         this.loading = false;
         let formatedData = data.results ? this.formatFilm(data.results) : [];
         if (formatedData.length === 0) this.showedAll = true;
@@ -23,10 +33,12 @@ class Listing extends React.Component {
     };
 
     fail = error => {
+        // When error while data receiving.
         this.props.history.push('/lost');
     };
 
     more = () => {
+        // Get more data. It's passed to child components BoxList and SlideList.
         if (this.showedAll || this.loading) return;
         this.loading = true;
         this.page++;
@@ -34,6 +46,7 @@ class Listing extends React.Component {
     };
 
     formatFilm = data => {
+        // Formats the data received to a html way.
         if (!data) return [];
         return data.map((item, index) => {
             const backgroundImage = 'url(' + API.poster(item.poster_path, 200) + ')';
@@ -43,6 +56,7 @@ class Listing extends React.Component {
     }
 
     componentDidUpdate() {
+        // If there is an update because the query has changed, something must be reset.
         if (this.query !== this.props.query) {
             this.query = this.props.query;
             this.page = 0;
@@ -52,6 +66,7 @@ class Listing extends React.Component {
     }
 
     componentDidMount() {
+        // To load the first set of data
         this.more();
     }
 

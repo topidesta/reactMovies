@@ -3,8 +3,12 @@ import API from '../../Components/API/request';
 import Error404 from '../Error404';
 import Error from '../Error';
 import Button from '../../Components/Button';
-import shaka from 'shaka-player'
+import shaka from 'shaka-player';
 import './PlayMovie.css';
+
+/**
+ * Plays the movie
+ */
 
 class ViewMovie extends React.Component {
     state = {
@@ -13,14 +17,20 @@ class ViewMovie extends React.Component {
         message: ''
     }
     
+    // The manifest
     manifestUri='//storage.googleapis.com/shaka-demo-assets/angel-one/dash.mpd';
-    // manifestUri = '//bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8';
-    // manifestUri = '//storage.googleapis.com/shaka-demo-assets/sintel-widevine/dash.mpd';
+            // manifestUri = '//bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8';
+            // manifestUri = '//storage.googleapis.com/shaka-demo-assets/sintel-widevine/dash.mpd';
 
     loaded(data) {
-        if (!data.title) this.setState({ message: <Error404 /> });
+        // When data is received, error 404 if the films is not found, or update the the state and plays video.
+        if (!data.title) return this.setState({ message: <Error404 /> });
         this.setState({ title: data.title, backdrop: API.poster(data.backdrop_path, 500) }, this.playVideo);
     }
+
+    /**
+     * Playing video functions for shaka player
+     */
 
     playVideo() {
         shaka.polyfill.installAll();
@@ -45,6 +55,7 @@ class ViewMovie extends React.Component {
     }
 
     componentDidMount() {
+        // Ask for data when component is ready.
         API.request('DETAIL', this.props.match.params.id, 1, this.loaded.bind(this), this.loaded.bind(this));
     }
 

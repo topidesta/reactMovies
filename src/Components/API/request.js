@@ -1,4 +1,14 @@
+/**
+ * This component makes all the fetchs to themoviedb
+ */ 
+
+
+// Api Key
 const apiKey = '7adc050ac3dbfd5b20b100f6b6745fc4';
+
+/**
+ * Calls to themoviedb
+ */
 
 const queryPopularMovies = page => {
     return 'https://api.themoviedb.org/3/movie/popular?api_key=' + apiKey + '&page=' + page;
@@ -24,6 +34,14 @@ const queryDetail = query => {
     return query?'https://api.themoviedb.org/3/movie/' + query + '?api_key=' + apiKey:null;
 }
 
+/**
+ * Creates the query taking care of arguments:
+ * 
+ * @param {*} type 'LIST' / 'SEARCH' / 'DETAIL'
+ * @param {*} query search query for SEARCH, Film ID for DETAIL, or for LIST: 'POPULAR_MOVIES' / 'POPULAR_SERIES' / 'FAMILY' / 'DOCUMENTARY'
+ * @param {*} page The page results.
+ */
+
 const queries = (type, query, page=1) => {
     switch (type) {
         case 'LIST':
@@ -48,6 +66,16 @@ const queries = (type, query, page=1) => {
     }
 }
 
+/**
+ * Fetch the results.
+ * 
+ * @param {*} type 'LIST' / 'SEARCH' / 'DETAIL'
+ * @param {*} query search query for SEARCH, Film ID for DETAIL, or for LIST: 'POPULAR_MOVIES' / 'POPULAR_SERIES' / 'FAMILY' / 'DOCUMENTARY'
+ * @param {*} page The page results.
+ * @param {*} callbackOK Callback when done ok
+ * @param {*} callbackError Callback when fails
+ */
+
 const request = (type, query, page, callbackOK, callbackError) => {
     const actualQuery=queries(type, query, page);
     if (!actualQuery) return callbackOK([]);
@@ -62,6 +90,13 @@ const request = (type, query, page, callbackOK, callbackError) => {
             callbackError(error);
         });
 }
+
+/**
+ * Returns the absolute url of an image
+ * 
+ * @param {} url The url as received by themoviedb api.
+ * @param {*} size The size of the image.
+ */
 
 const poster = (url, size) => {
     if (!url) return '';

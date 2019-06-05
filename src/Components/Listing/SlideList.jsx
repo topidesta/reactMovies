@@ -1,18 +1,25 @@
 import React from 'react';
 
+/**
+ * Renders a slider with infinite scroll. It's only called from Listing
+ */
+
 const SlideList = props => {
 
     const moveRight = () => {
+        // Move slider content to right
         const element = document.getElementById(props.query);
         smooth(element, 210);
     }
 
     const moveLeft = () => {
+        // Move slider content to left
         const element = document.getElementById(props.query);
         smooth(element, -210);
     }
 
     const smooth = (element, pixels) => {
+        // Makes the component moving smooth.
         const eachMove = Math.round(pixels / 10);
         let moved = 0;
         const timer = setInterval(() => {
@@ -23,6 +30,7 @@ const SlideList = props => {
     }
 
     const scrolled = () => {
+        // Based on component size and content loaded, if it's near to end, it renders more() using the function passed by parent Listing
         const element = document.getElementById(props.query);
         const scrolled = element.scrollLeft;
         const contentWidth = element.scrollWidth;

@@ -1,8 +1,13 @@
 import React from 'react';
 
-class SlideList extends React.Component {
+/**
+ * Renders a list with infinite scroll. It's only called from Listing
+ */
+
+class BoxList extends React.Component {
 
     scrolled = () => {
+        // Based on page size and content loaded, if it's near to end, it renders more() using the function passed by parent Listing
         const bodyElement = document.body;
         const windowHeight = window.innerHeight;
         const bodyScrollHeight = window.scrollY;
@@ -29,4 +34,4 @@ class SlideList extends React.Component {
     }
 }
 
-export default SlideList;
+export default BoxList;

@@ -1,3 +1,25 @@
+## Release notes
+
+Sliders and search works with one unique component: Listing component verifies and format as box or slider, fetching data.
+
+Both slider and box listings have infinite scroll. In the case of the sliders, it goes with prev and next bottoms with smooth scroll.
+
+Component API makes all the api functions, so them are centered at one component.
+
+Most components have clear functions: Error displays an error, Error 404 displays an error 404, Button formats a button...
+
+At AppRouter I created a middleware to scroll to top every new page.
+
+Design is responsive. Main design is at Template.
+
+Search page is so simple because it uses all the Listing component advantages.
+
+The play is with shaka-player.
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

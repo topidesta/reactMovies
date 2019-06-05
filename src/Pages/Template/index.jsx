@@ -2,6 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Template.css';
 
+/**
+ * The html template
+ */
+
 const Template = props => {
     return (
         <div>

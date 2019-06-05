@@ -1,6 +1,10 @@
 import React from 'react';
 import Listing from '../../Components/Listing';
 
+/**
+ * Shows the home (actually, 4 sliders using the Listing component)
+ */
+
 const Home = props => {
     return (
         <div>
