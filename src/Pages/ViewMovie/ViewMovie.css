@@ -31,7 +31,7 @@
     text-align: center;
 }
 
-.tags span {
+.tags p {
     border: 3px solid black;
     color: black;
     padding: 10px;

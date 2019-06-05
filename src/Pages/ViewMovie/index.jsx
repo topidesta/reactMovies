@@ -19,7 +19,7 @@ class ViewMovie extends React.Component {
         this.setState({
             title: data.title,
             description: data.overview,
-            tags: data.genres.map((t, index) => <span key={index}>{t.name}</span>),
+            tags: data.genres.map((t, index) => <p key={index}>{t.name}</p>),
             poster: API.poster(data.poster_path, 500)
         });
     }
@@ -46,8 +46,8 @@ class ViewMovie extends React.Component {
                                 <div className="info">
                                     <div className="text">
                                         <p>{this.state.description}</p>
-                                        <p className="tags">{this.state.tags}</p>
                                         <p className="playbotton"><Button to={'/movie/' + this.props.match.params.id + '/play'}>Play</Button></p>
+                                        <div className="tags">{this.state.tags}</div>
                                     </div>
                                 </div>
                                 <div className="poster"><img src={this.state.poster} alt={this.state.title} /></div>

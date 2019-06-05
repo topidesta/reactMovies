@@ -1,0 +1,11 @@
+.filmPlayerHead {
+    display: flex;
+}
+
+.filmPlayerHead div {
+    flex: 1;
+}
+
+.filmPlayerHead .close {
+    flex: 0;
+}
