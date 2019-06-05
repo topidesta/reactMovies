@@ -12,8 +12,10 @@ class ViewMovie extends React.Component {
         backdrop: '',
         message: ''
     }
-
-    manifestUri = 'https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8';
+    
+    manifestUri='//storage.googleapis.com/shaka-demo-assets/angel-one/dash.mpd';
+    // manifestUri = '//bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8';
+    // manifestUri = '//storage.googleapis.com/shaka-demo-assets/sintel-widevine/dash.mpd';
 
     loaded(data) {
         if (!data.title) this.setState({ message: <Error404 /> });
@@ -32,7 +34,8 @@ class ViewMovie extends React.Component {
     initPlayer() {
         var player = new shaka.Player(document.getElementById('video'));
         player.addEventListener('error', this.onError.bind(this));
-        player.load(this.manifestUri).catch(this.onError.bind(this));
+        player.load(this.manifestUri)
+            .catch(this.onError.bind(this));
     }
 
     onError(error) {
@@ -56,7 +59,7 @@ class ViewMovie extends React.Component {
                         <div className="filmPlayer">
                             <div className="filmPlayerHead">
                                 <div><h1>{this.state.title}</h1></div>
-                                <div className="close"><Button to={'/movie/' + this.props.match.params.id }>X</Button></div>
+                                <div className="close"><Button to={'/movie/' + this.props.match.params.id}>X</Button></div>
                             </div>
                             <video id="video"
                                 width="100%"
