@@ -50,7 +50,7 @@ class ViewMovie extends React.Component {
 
     onError(error) {
         const showText = typeof (error) === 'string' ? error : 'Connection error';
-        const message = <Error data={showText} />;
+        const message = <Error data={showText} to={'/movie/'+this.props.match.params.id} text="Back" />;
         this.setState({ message });
     }
 

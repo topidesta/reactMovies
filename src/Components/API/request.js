@@ -26,6 +26,10 @@ const queryDocumentary = page => {
     return 'https://api.themoviedb.org/3/discover/movie?api_key=' + apiKey + '&page=' + page + '&with_genres=99';
 }
 
+const queryRelated = (query, page) => {
+    return query?'https://api.themoviedb.org/3/movie/' + query + '/recommendations?api_key=' + apiKey:null;
+}
+
 const querySearch = (query, page) => {
     return query?'https://api.themoviedb.org/3/search/movie?api_key=' + apiKey + '&page=' + page + '&query=' + escape(query):null;
 }
@@ -37,7 +41,7 @@ const queryDetail = query => {
 /**
  * Creates the query taking care of arguments:
  * 
- * @param {*} type 'LIST' / 'SEARCH' / 'DETAIL'
+ * @param {*} type 'LIST' / 'SEARCH' / 'DETAIL' / 'RELATED'
  * @param {*} query search query for SEARCH, Film ID for DETAIL, or for LIST: 'POPULAR_MOVIES' / 'POPULAR_SERIES' / 'FAMILY' / 'DOCUMENTARY'
  * @param {*} page The page results.
  */
@@ -57,6 +61,8 @@ const queries = (type, query, page=1) => {
                 default:
                     return null;
             }
+        case 'RELATED':
+            return queryRelated(query, page);
         case 'SEARCH':
             return querySearch(query, page);
         case 'DETAIL':
@@ -69,8 +75,8 @@ const queries = (type, query, page=1) => {
 /**
  * Fetch the results.
  * 
- * @param {*} type 'LIST' / 'SEARCH' / 'DETAIL'
- * @param {*} query search query for SEARCH, Film ID for DETAIL, or for LIST: 'POPULAR_MOVIES' / 'POPULAR_SERIES' / 'FAMILY' / 'DOCUMENTARY'
+ * @param {*} type 'LIST' / 'SEARCH' / 'DETAIL' / 'RELATED'
+ * @param {*} query search query for SEARCH, Film ID for DETAIL or RELATED, or for LIST: 'POPULAR_MOVIES' / 'POPULAR_SERIES' / 'FAMILY' / 'DOCUMENTARY'
  * @param {*} page The page results.
  * @param {*} callbackOK Callback when done ok
  * @param {*} callbackError Callback when fails
