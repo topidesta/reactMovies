@@ -1,6 +1,7 @@
 import React from 'react';
 import API from '../../Components/API/request';
 import Listing from '../../Components/Listing';
+import Loading from '../../Components/Loading';
 import Button from '../../Components/Button';
 import Error404 from '../Error404';
 import './ViewMovie.css';
@@ -16,7 +17,7 @@ class ViewMovie extends React.Component {
         description: '',
         tags: '',
         poster: '',
-        message: ''
+        message: '<Loading />'
     }
 
     loading = false;
@@ -24,8 +25,7 @@ class ViewMovie extends React.Component {
     loaded(data) {
         // When data is received, if wrong shows message, 
         if (!data.title) {
-            this.setState({ id: this.props.match.params.id }, () => this.loading = false)
-            return this.setState({ message: <Error404 /> });
+            return this.setState({ id: this.props.match.params.id, message: <Error404 /> }, () => this.loading = false)
         }
         // Update background and set state with received data
         document.getElementsByTagName('body')[0].style.backgroundImage = 'url(' + API.poster(data.backdrop_path, 500) + ')';
@@ -34,7 +34,8 @@ class ViewMovie extends React.Component {
             title: data.title,
             description: data.overview,
             tags: data.genres.map((t, index) => <p key={index}>{t.name}</p>),
-            poster: API.poster(data.poster_path, 500)
+            poster: API.poster(data.poster_path, 500),
+            message: ''
         }, () => this.loading = false);
     }
 
@@ -42,6 +43,7 @@ class ViewMovie extends React.Component {
         // Ask for data when component is ready or when id changes.
         if (this.loading || this.state.id === this.props.match.params.id) return;
         this.loading = true;
+        this.setState({message: <Loading />});
         API.request('DETAIL', this.props.match.params.id, 1, this.loaded.bind(this), this.loaded.bind(this));
     }
 
