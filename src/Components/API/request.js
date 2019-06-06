@@ -27,7 +27,7 @@ const queryDocumentary = page => {
 }
 
 const queryRelated = (query, page) => {
-    return query?'https://api.themoviedb.org/3/movie/' + query + '/recommendations?api_key=' + apiKey:null;
+    return query?'https://api.themoviedb.org/3/movie/' + query + '/recommendations?api_key=' + apiKey+'&page='+page:null;
 }
 
 const querySearch = (query, page) => {
