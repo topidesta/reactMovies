@@ -31,8 +31,8 @@ const FineRoute = ({ component: Component, ...props }) => {
     return (
         <Route
             {...props}
-            render={props => {
-                return <Component {...props} />;
+            render={componentProps => {
+                return <Component {...componentProps} />;
             }}
         />
     );
